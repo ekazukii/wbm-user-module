@@ -5,10 +5,11 @@ const express = require("express");
 module.exports = function(options) {
     var app = options.app
     var con = options.con;
+    var lang = options.lang || "en";
 
     var router = express.Router();
 
-        
+
     router.use('/img', express.static(path.join(__dirname, 'public/img')));
     router.use('/css', express.static(path.join(__dirname, 'public/css')));
 
@@ -18,11 +19,19 @@ module.exports = function(options) {
     })
 
     router.get('/register', function(req, res) {
-        res.sendFile(path.join(__dirname, 'views/register.html'));
+        if(lang === "fr") {
+            res.sendFile(path.join(__dirname, 'views/register_fr.html'));
+        } else {
+            res.sendFile(path.join(__dirname, 'views/register_en.html'));
+        }
     });
 
     router.get('/login', function(req, res) {
-      res.sendFile(path.join(__dirname, 'views/login.html'));
+        if(lang === "fr") {
+            res.sendFile(path.join(__dirname, 'views/login_fr.html'));
+        } else {
+            res.sendFile(path.join(__dirname, 'views/login_en.html'));
+        }
     });
 
     router.post('/register', function(req, res) {
@@ -66,7 +75,7 @@ module.exports = function(options) {
     function login(con, username, password, callback) {
         const hash = crypto.createHash('sha256');
         hash.update(con.escape(escapeHtml(password)));
-      
+
         var username = con.escape(escapeHtml(username));
         var cryptedPass = con.escape(escapeHtml(hash.digest('hex')));
 

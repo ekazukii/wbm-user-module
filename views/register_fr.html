@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Ekazuki">
+    <title>Web Bungeecord Manager - Inscription</title>
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="/user/css/login.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="alert alert-danger container" role="alert" id="alert">
+        Nom d'utilisateur ou adresse email déja utilisé
+    </div>
+    <form class="form-signin" method="post" action="/user/register">
+      <img class="mb-4" src="/user/img/logo.png" alt="brand" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+      <label for="username" class="sr-only">Nom d'utilisateur</label>
+      <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'utilisateur" required>
+      <br />
+      <label for="inputPassword" class="sr-only">Mot de passe</label>
+      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+      <p>
+        Vous avez déja un compte ? <a href="/user/login"> Se connecter </a>
+      </p>
+      <button class="btn btn-primary" id="submit" type="submit">Confirmer</button>
+      <p class="mt-5 mb-3 text-muted"><a href="https://github.com/ekazukii"  target="_blank"><img src="/img/github.svg" alt="github icon" id="github-logo"/></a></p>
+    </form>
+
+    <script type="text/javascript">
+    function getUrlVars()
+    {
+      var vars = [], hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for(var i = 0; i < hashes.length; i++)
+      {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+      }
+      return vars;
+    }
+    console.log(getUrlVars()["repeat"]);
+    if (getUrlVars()["repeat"] != "true") {
+      $("#alert").hide();
+      console.log($("#alert"))
+    }
+    </script>
+  </body>
+</html>

@@ -38,3 +38,8 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+#github-logo {
+    width: 3em;
+    height: 3em;
+}
