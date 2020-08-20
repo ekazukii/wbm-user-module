@@ -1,11 +1,42 @@
 const crypto = require("crypto");
 const path = require("path");
 const express = require("express");
+const mysql = require("mysql");
+
+function isDef(v) {
+    return (typeof v !== "undefined");
+}
 
 module.exports = function(options) {
     var app = options.app
-    var con = options.con;
     var lang = options.lang || "en";
+
+    if(!isDef(options.dbHost) || !isDef(options.dbUser) || !isDef(options.dbPassword) || !isDef(options.dbPort) || !isDef(options.dbSocketpath)) {
+        throw new Error("WBM-User: If you want the whitelist you have to provide a MySQL connect vars");
+        return;
+    }
+
+    var mySQLOptions = {
+      host     : options.dbHost,
+      user     : options.dbUser,
+      password : options.dbPassword,
+      port     : options.dbPort,
+      database : 'website'
+    }
+
+    if (options.dbSocketpath !== "NONE") {
+      mySQLOptions.socketPath = options.dbSocketpath;
+    }
+
+    var con = mysql.createConnection(mySQLOptions);
+
+    con.connect((err) => {
+        if (err) {
+          console.error('error connecting: ' + err.stack);
+          return;
+        }
+        console.log('\x1b[36m%s\x1b[0m', 'MYSQL CHECKED');
+    });
 
     var router = express.Router();
 
