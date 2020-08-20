@@ -1,0 +1,19 @@
+{
+  "name": "wbm-user-module",
+  "version": "1.0.0",
+  "main": "user.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/ekazukii/web-bungeecord-manager.git"
+  },
+  "author": "ekazuki",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/ekazukii/web-bungeecord-manager/issues"
+  },
+  "homepage": "https://github.com/ekazukii/web-bungeecord-manager.git",
+  "description": ""
+}
