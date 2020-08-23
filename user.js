@@ -92,15 +92,15 @@ module.exports = function(options) {
     });
 
     router.get('/disconnect', function(req, res) {
-        isConnected(req.session, function() {
-          req.session.destroy(function(err) {
-            if (err) {
-              logError(err);
-            }
-          });
-        }, function() {
-          res.redirect('/');
-        });
+        if (isConnected(req.session)) {
+            req.session.destroy(function(err) {
+                if (err) {
+                    logError(err);
+                }
+            });
+        } else {
+            res.redirect('/');
+        }
       });
 
     function login(con, username, password, callback) {
@@ -143,12 +143,8 @@ module.exports = function(options) {
         });
     }
 
-    function isConnected(sess, connected, notConnected) {
-        if(typeof sess !== 'undefined' && typeof sess.username !== 'undefined' && typeof sess.id !== 'undefined') {
-          connected();
-        } else {
-          notConnected();
-        }
+    function isConnected(sess) {
+        return (typeof sess !== 'undefined' && typeof sess.username !== 'undefined' && typeof sess.id !== 'undefined');
       }
 
     function escapeHtml(text) {
