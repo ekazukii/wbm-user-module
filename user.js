@@ -45,9 +45,12 @@ module.exports = function(options) {
     router.use('/css', express.static(path.join(__dirname, 'public/css')));
 
     router.get('/', function(req, res) {
-        console.log(req.session);
-        res.send("Home");
-    })
+        if (isConnected(req.session)) {
+            res.redirect('/minecraft/');
+        } else {
+            res.redirect('/user/login');
+        }
+    });
 
     router.get('/register', function(req, res) {
         if(lang === "fr") {
@@ -101,7 +104,7 @@ module.exports = function(options) {
         } else {
             res.redirect('/');
         }
-      });
+    });
 
     function login(con, username, password, callback) {
         const hash = crypto.createHash('sha256');
