@@ -48,7 +48,7 @@ module.exports = function(options) {
         if (isConnected(req.session)) {
             res.redirect('/minecraft/');
         } else {
-            res.redirect('/user/login');
+            res.redirect('/session/login');
         }
     });
 
@@ -72,9 +72,9 @@ module.exports = function(options) {
         let body = req.body;
         register(con, body.username, body.password, function(err, result) {
           if (err) {
-            res.redirect("/user/register?repeat=true");
+            res.redirect("/session/register?repeat=true");
           } else {
-            res.redirect("/user/register")
+            res.redirect("/session/register")
           }
         })
       });
@@ -84,7 +84,7 @@ module.exports = function(options) {
         login(con, body.username, body.password, function(err, data) {
             if (err) throw err;
             if (data == "Username or login wrong") {
-              res.redirect("/user/login?wrongcred=true");
+              res.redirect("/session/login?wrongcred=true");
             } else {
               req.session.username = data.username;
               req.session.rank = data.rank;
@@ -161,5 +161,5 @@ module.exports = function(options) {
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
-    app.use("/user/", router);
+    app.use("/session/", router);
 }
