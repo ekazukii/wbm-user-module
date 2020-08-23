@@ -45,9 +45,12 @@ module.exports = function(options) {
     router.use('/css', express.static(path.join(__dirname, 'public/css')));
 
     router.get('/', function(req, res) {
-        console.log(req.session);
-        res.send("Home");
-    })
+        if (isConnected(req.session)) {
+            res.redirect('/minecraft/');
+        } else {
+            res.redirect('/session/login');
+        }
+    });
 
     router.get('/register', function(req, res) {
         if(lang === "fr") {
@@ -69,9 +72,9 @@ module.exports = function(options) {
         let body = req.body;
         register(con, body.username, body.password, function(err, result) {
           if (err) {
-            res.redirect("/user/register?repeat=true");
+            res.redirect("/session/register?repeat=true");
           } else {
-            res.redirect("/user/register")
+            res.redirect("/session/register")
           }
         })
       });
@@ -81,7 +84,7 @@ module.exports = function(options) {
         login(con, body.username, body.password, function(err, data) {
             if (err) throw err;
             if (data == "Username or login wrong") {
-              res.redirect("/user/login?wrongcred=true");
+              res.redirect("/session/login?wrongcred=true");
             } else {
               req.session.username = data.username;
               req.session.rank = data.rank;
@@ -92,16 +95,16 @@ module.exports = function(options) {
     });
 
     router.get('/disconnect', function(req, res) {
-        isConnected(req.session, function() {
-          req.session.destroy(function(err) {
-            if (err) {
-              logError(err);
-            }
-          });
-        }, function() {
-          res.redirect('/');
-        });
-      });
+        if (isConnected(req.session)) {
+            req.session.destroy(function(err) {
+                if (err) {
+                    logError(err);
+                }
+            });
+        } else {
+            res.redirect('/');
+        }
+    });
 
     function login(con, username, password, callback) {
         const hash = crypto.createHash('sha256');
@@ -143,12 +146,8 @@ module.exports = function(options) {
         });
     }
 
-    function isConnected(sess, connected, notConnected) {
-        if(typeof sess !== 'undefined' && typeof sess.username !== 'undefined' && typeof sess.id !== 'undefined') {
-          connected();
-        } else {
-          notConnected();
-        }
+    function isConnected(sess) {
+        return (typeof sess !== 'undefined' && typeof sess.username !== 'undefined' && typeof sess.id !== 'undefined');
       }
 
     function escapeHtml(text) {
@@ -162,5 +161,5 @@ module.exports = function(options) {
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
-    app.use("/user/", router);
+    app.use("/session/", router);
 }
