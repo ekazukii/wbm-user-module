@@ -14,7 +14,7 @@ module.exports = function(options) {
     var lang = options.lang || "en";
 
     if(!isDef(options.dbHost) || !isDef(options.dbUser) || !isDef(options.dbPassword) || !isDef(options.dbPort) || !isDef(options.dbSocketpath)) {
-        throw new Error("WBM-User: If you want the whitelist you have to provide a MySQL connect vars");
+        throw new Error("WBM-User: If you want this module you have to provide a MySQL connect vars");
         return;
     }
 
