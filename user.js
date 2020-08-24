@@ -2,6 +2,8 @@ const crypto = require("crypto");
 const path = require("path");
 const express = require("express");
 const mysql = require("mysql");
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
 
 function isDef(v) {
     return (typeof v !== "undefined");
@@ -12,7 +14,7 @@ module.exports = function(options) {
     var lang = options.lang || "en";
 
     if(!isDef(options.dbHost) || !isDef(options.dbUser) || !isDef(options.dbPassword) || !isDef(options.dbPort) || !isDef(options.dbSocketpath)) {
-        throw new Error("WBM-User: If you want the whitelist you have to provide a MySQL connect vars");
+        throw new Error("WBM-User: If you want this module you have to provide a MySQL connect vars");
         return;
     }
 
@@ -27,6 +29,16 @@ module.exports = function(options) {
     if (options.dbSocketpath !== "NONE") {
       mySQLOptions.socketPath = options.dbSocketpath;
     }
+
+    var sessionStore = new MySQLStore(mySQLOptions);
+
+    app.use(session({
+        name: 'wbm-session',
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: true,
+        resave: true,
+        store: sessionStore
+    }));
 
     var con = mysql.createConnection(mySQLOptions);
 
