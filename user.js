@@ -18,6 +18,11 @@ module.exports = function(options) {
         return;
     }
 
+    if(!isDef(options.sessionSecret)) {
+        throw new Error("You need to specify a cookie session secret in the options");
+        return;
+    }
+
     var mySQLOptions = {
       host     : options.dbHost,
       user     : options.dbUser,
@@ -34,7 +39,7 @@ module.exports = function(options) {
 
     app.use(session({
         name: 'wbm-session',
-        secret: process.env.SESSION_SECRET,
+        secret: options.sessionSecret,
         saveUninitialized: true,
         resave: true,
         store: sessionStore

@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
-    <link href="/user/css/login.css" rel="stylesheet">
+    <link href="/session/css/login.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
@@ -22,8 +22,8 @@
     <div class="alert alert-danger container" role="alert" id="alertdejaco">
         Utilisateur déja connecté
     </div>
-    <form class="form-signin" method="post" action="/user/login" id="formLogin">
-      <img class="mb-4" src="/user/img/logo.png" alt="brand" width="72" height="72">
+    <form class="form-signin" method="post" action="/session/login" id="formLogin">
+      <img class="mb-4" src="/session/img/logo.png" alt="brand" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal" id="player">Connexion</h1>
       <label for="username" class="sr-only">Nom d'utilisateur</label>
       <input type="text" name="username" id="username" class="form-control" placeholder="Nom d'utilisateur" required>
@@ -31,7 +31,7 @@
       <label for="inputPassword" class="sr-only">Mot de passe</label>
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
       <p>
-        Vous n'avez pas de compte ? <a href="/user/register"> s'inscrire </a>
+        Vous n'avez pas de compte ? <a href="/session/register"> s'inscrire </a>
       </p>
       <button class="btn btn-primary" id="submit" type="submit">Confirmer</button>
       <p class="mt-5 mb-3 text-muted"><a href="https://github.com/ekazukii"  target="_blank"><img src="/img/github.svg" alt="github icon" id="github-logo"/></a></p>
