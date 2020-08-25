@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <link href="/user/css/login.css" rel="stylesheet">
+    <link href="/session/css/login.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
     <div class="alert alert-danger container" role="alert" id="alert">
         Username already used.
     </div>
-    <form class="form-signin" method="post" action="/user/register">
-      <img class="mb-4" src="/user/img/logo.png" alt="brand" width="72" height="72">
+    <form class="form-signin" method="post" action="/session/register">
+      <img class="mb-4" src="/session/img/logo.png" alt="brand" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Register</h1>
       <label for="username" class="sr-only">Username</label>
       <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
@@ -26,7 +26,7 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
       <p>
-        You already have an account ? <a href="/user/login"> Login </a>
+        You already have an account ? <a href="/session/login"> Login </a>
       </p>
       <button class="btn btn-primary" id="submit" type="submit">Submit</button>
       <p class="mt-5 mb-3 text-muted"><a href="https://github.com/ekazukii"  target="_blank"><img src="/img/github.svg" alt="github icon" id="github-logo"/></a></p>
